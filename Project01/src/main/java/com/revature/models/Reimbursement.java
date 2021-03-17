@@ -25,7 +25,7 @@ public class Reimbursement {
 	
 	
 	public Reimbursement() {
-		
+		submitted = new Timestamp(System.currentTimeMillis());
 	}
 
 
@@ -142,6 +142,14 @@ public class Reimbursement {
 
 	public void setStatus(ReimbursementStatus status) {
 		this.status = status;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
+				+ ", description=" + description + ", receipt=" + receipt + ", author=" + author + ", resolver="
+				+ resolver + ", type=" + type + ", status=" + status + "]";
 	}
 	
 	

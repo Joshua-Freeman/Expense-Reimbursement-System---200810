@@ -9,13 +9,15 @@ import java.util.Properties;
 
 
 public class ConnectionUtil {
+	
 	private static ConnectionUtil cu = null;
 	private static Properties prop;
 
 
 	private ConnectionUtil() {
+		
 		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream is = classLoader.getResourceAsStream("database.properties");
+		InputStream is = classLoader.getResourceAsStream("./resources/database.properties");
 		prop = new Properties();
 		try {
 			prop.load(is);
@@ -33,6 +35,10 @@ public class ConnectionUtil {
 
 
 	public Connection getConnection() {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+		}
 		try {		
 			Connection conn = DriverManager.getConnection(
 					prop.getProperty("url"),

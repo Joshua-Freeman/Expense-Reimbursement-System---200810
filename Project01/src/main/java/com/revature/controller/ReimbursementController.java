@@ -1,0 +1,57 @@
+package com.revature.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.dao.ReimbursementDao;
+import com.revature.models.Reimbursement;
+import com.revature.models.User;
+import com.revature.models.User.UserRole;
+
+public class ReimbursementController {
+
+	ReimbursementDao rdao = new ReimbursementDao();
+	
+	public void submit(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Reimbursement reim = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		rdao.addReimbursement(reim);
+		res.getWriter().write(new ObjectMapper().writeValueAsString(reim));
+	}
+
+	public void update(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Reimbursement reim = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		rdao.updateReimbursement(reim);
+		res.getWriter().write(new ObjectMapper().writeValueAsString(reim));
+		
+	}
+
+	public void users(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		User user = mapper.readValue(req.getInputStream(), User.class);
+		List<Reimbursement> reims = rdao.getUserReimbursement(user);
+		res.getWriter().write(new ObjectMapper().writeValueAsString(reims));
+		
+	}
+
+	public void all(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		User user = mapper.readValue(req.getInputStream(), User.class);
+		if(!user.getRole().name().equals(UserRole.MANAGER.name())) {
+			res.sendError(HttpServletResponse.SC_FORBIDDEN, "You need to be a manager.");
+		}
+		else {
+			List<Reimbursement> reims = rdao.getReimbursements();
+			res.getWriter().write(new ObjectMapper().writeValueAsString(reims));
+		}
+		
+	}
+
+}
