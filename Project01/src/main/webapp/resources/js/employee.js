@@ -48,6 +48,19 @@ function table(data) {
 	var table = document.getElementById('table');
 	data.forEach(function(object) {
 		var tr = document.createElement('tr');
+		switch(object.status){
+			case "APPROVED":
+				tr.className = "table-success";
+				break;
+			case "REJECTED":
+				tr.className = "table-danger";
+				break;
+			case "PENDING":
+				tr.className = "table-warning";
+				break;
+			default:
+			
+		}
 		tr.innerHTML =
 			'<td>' + object.amount + '</td>' +
 			'<td>' + object.submitted + '</td>' +

@@ -16,7 +16,7 @@ import com.revature.models.User;
 import com.revature.utils.ConnectionUtil;
 
 public class ReimbursementDao {
-
+	
 	private Connection conn = ConnectionUtil.getConnectionUtil().getConnection();
 	
 	public Reimbursement addReimbursement(Reimbursement r) {

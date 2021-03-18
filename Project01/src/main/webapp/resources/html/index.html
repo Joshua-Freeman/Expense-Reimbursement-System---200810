@@ -18,21 +18,29 @@
 
 <body>
 
-	
-		<div class="mb-3">
-			<label for="username" class="form-label">Username</label> 
-			<input
-				type="text" class="form-control" id="username">
+	<div class="jumbotron">
+		<h1 class="display-4">Reimbursements</h1>
+	</div>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<div>
+					<label for="username" class="form-label">Username</label> <input
+						type="text" class="form-control" id="username" required="required">
+				</div>
+
+				<div>
+					<label for="password" class="form-label">Password</label> <input
+						type="password" class="form-control" id="password"
+						required="required">
+				</div>
+				<input type="submit" value="Log In" id="login"
+					class="btn btn-primary"> <a href="register.html"><button
+						class="btn btn-primary">New User</button></a>
+				<p id="test"></p>
+			</div>
 		</div>
-		<div class="mb-3">
-			<label for="password" class="form-label">Password</label> <input
-				type="password" class="form-control" id="password">
-		</div>
-		<input type ="submit" value ="Log In" id ="login" class="btn btn-primary">
-	
-	<a href="register.html"><button class="btn btn-primary">New
-			User</button></a>
-	<p id="test"></p>
-<script src="../js/login.js"></script>
+	</div>
+	<script src="../js/login.js"></script>
 </body>
 </html>

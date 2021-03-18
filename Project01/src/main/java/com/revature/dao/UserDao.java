@@ -114,7 +114,6 @@ public class UserDao {
 		return null;
 	}
 
-
 	public User addUser(User user) {
 		try {
 			String sql = "insert into ERS_USERS(ERS_USERNAME,ERS_PASSWORD,USER_FIRST_NAME,USER_LAST_NAME,USER_EMAIL,USER_ROLE_ID) "

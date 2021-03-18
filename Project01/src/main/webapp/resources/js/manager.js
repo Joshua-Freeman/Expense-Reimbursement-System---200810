@@ -4,10 +4,19 @@
 window.onload = function() {
 	document.getElementById("b1").addEventListener("click", toggle);
 	document.getElementById("b2").addEventListener("click", update);
+	document.getElementById("logout").addEventListener("click", logout);
 	manager();
 }
 
-
+function logout(){
+		fetch("http://localhost:8080/Project01/revature/user/logout").then(
+		function(response) {
+			window.location.replace("index.html");
+		}, function() {
+			console.log("something went wrong");
+		}
+	);
+}
 
 function toggle() {
 	let doc = document.getElementById("ticket");
@@ -36,6 +45,19 @@ function table(data) {
 	var table = document.getElementById('table');
 	data.forEach(function(object) {
 		var tr = document.createElement('tr');
+		switch(object.status){
+			case "APPROVED":
+				tr.className = "table-success";
+				break;
+			case "REJECTED":
+				tr.className = "table-danger";
+				break;
+			case "PENDING":
+				tr.className = "table-warning";
+				break;
+			default:
+			
+		}
 		tr.innerHTML =
 			'<td>' + object.id + '</td>' +
 			'<td>' + object.amount + '</td>' +
