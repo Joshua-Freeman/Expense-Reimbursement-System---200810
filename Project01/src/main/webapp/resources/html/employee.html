@@ -16,6 +16,15 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div class="jumbotron">
+	<h1 class="display-4">Reimbursements</h1>
+	<p class = "lead">Employee view</p>
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	<button type="button" class="btn btn-secondary" id="logout">Log out</button>
+	</div>
+</div>
+
 	<div>
 		<table class="table" id="table">
 			<thead>
@@ -33,7 +42,8 @@
 			</thead>
 		</table>
 	</div>
-	<button id="b1">Submit a new ticket</button>
+	<button id="b1" class="btn btn-outline-secondary">Submit a new ticket</button>
+	<p><br></p>
 	<div style="visibility: hidden;" id="ticket">
 		<div class="input-group">
 			<span class="input-group-text">Amount</span> <input type="number"
@@ -50,7 +60,8 @@
 			<span class="input-group-text">Description</span> <input
 				class="form-control" name="description" type="text" id="desc">
 		</div>
-		<button type="submit" id="b2">Submit</button>
+		<p><br></p>
+		<button class="btn btn-outline-primary" type="submit" id="b2">Submit</button>
 	</div>
 
 	<script src="../js/employee.js"></script>

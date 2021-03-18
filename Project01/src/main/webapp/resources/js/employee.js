@@ -4,10 +4,19 @@
 window.onload = function() {
 	document.getElementById("b1").addEventListener("click", toggle);
 	document.getElementById("b2").addEventListener("click", newReim);
+	document.getElementById("logout").addEventListener("click", logout);
 	employee();
 }
 
-
+function logout(){
+		fetch("http://localhost:8080/Project01/revature/user/logout").then(
+		function(response) {
+			window.location.replace("index.html");
+		}, function() {
+			console.log("something went wrong");
+		}
+	);
+}
 
 function toggle() {
 	let doc = document.getElementById("ticket");
@@ -23,9 +32,12 @@ function toggle() {
 function employee() {
 	fetch("http://localhost:8080/Project01/revature/reimbursement/users").then(
 		function(response) {
+			if(!response.ok){
+				location.href = "index.html";
+			}
 			return response.json();
 		}, function() {
-			console.log("something went wrong");
+			
 		}
 	).then(function(json) {
 		table(json);

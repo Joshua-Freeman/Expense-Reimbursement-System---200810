@@ -3,8 +3,8 @@
  */
 window.onload = function() {
 	document.getElementById("b1").addEventListener("click", toggle);
-	document.getElementById("b2").addEventListener("click", newReim);
-	employee();
+	document.getElementById("b2").addEventListener("click", update);
+	manager();
 }
 
 
@@ -20,8 +20,8 @@ function toggle() {
 	
 }
 
-function employee() {
-	fetch("http://localhost:8080/Project01/revature/reimbursement/users").then(
+function manager() {
+	fetch("http://localhost:8080/Project01/revature/reimbursement/all").then(
 		function(response) {
 			return response.json();
 		}, function() {
@@ -37,6 +37,7 @@ function table(data) {
 	data.forEach(function(object) {
 		var tr = document.createElement('tr');
 		tr.innerHTML =
+			'<td>' + object.id + '</td>' +
 			'<td>' + object.amount + '</td>' +
 			'<td>' + object.submitted + '</td>' +
 			'<td>' + object.resolved + '</td>' +
@@ -50,20 +51,20 @@ function table(data) {
 	});
 }
 
-function newReim() {
-	let amount = document.getElementById('amount').value;
-	let type = document.getElementById('type').value;
-	let description = document.getElementById('desc').value;
+function update() {
+	let id = document.getElementById('id').value;
+	let status = document.getElementById('status').value;
+
 	var data = [{
-		amount: `${amount}`,
-		description: `${description}`,
-		type: `${type}`
+		id: `${id}`,
+		status: `${status}`
 	}]
 
-	fetch(`http://localhost:8080/Project01/revature/reimbursement/submit?amount=${amount}&type=${type}&description=${description}`, {
+	fetch(`http://localhost:8080/Project01/revature/reimbursement/approve?id=${id}&status=${status}`, {
 		method: 'POST',
 	}).then(response => response.json()).then(data => {
-		tableUpdate(data);
+		teardown();
+		manager();
 		toggle();
 	}).catch((error) => {
 		console.error('Error', error);
@@ -74,6 +75,7 @@ function tableUpdate(object) {
 	var table = document.getElementById('table');
 	var tr = document.createElement('tr');
 	tr.innerHTML =
+		'<td>' + object.id + '</td>' +
 		'<td>' + object.amount + '</td>' +
 		'<td>' + object.submitted + '</td>' +
 		'<td>' + object.resolved + '</td>' +
@@ -84,4 +86,11 @@ function tableUpdate(object) {
 		'<td>' + object.type + '</td>' +
 		'<td>' + object.status + '</td>';
 	table.appendChild(tr);
+}
+
+function teardown(){
+	var table = document.getElementById('table');
+	while(table.hasChildNodes()){
+		table.removeChild(table.firstChild);
+	}
 }

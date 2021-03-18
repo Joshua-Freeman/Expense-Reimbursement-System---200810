@@ -5,27 +5,29 @@ import java.util.List;
 import com.revature.dao.ReimbursementDao;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
+import com.revature.models.Reimbursement.ReimbursementStatus;
 import com.revature.models.User.UserRole;
 
 public class ReimbursementService {
-	ReimbursementDao rdao = new ReimbursementDao();
 	
-	public List<Reimbursement> getUserReim(User u){
-		List<Reimbursement> reim = null;
-		
-		
-		return reim;
-		
+	ReimbursementDao rDao = new ReimbursementDao();
+	
+	public Reimbursement addReimbursement(Reimbursement reim) {
+		return rDao.addReimbursement(reim);
 	}
 	
-	public List<Reimbursement> getAllReim(User u) throws Exception{
-		List<Reimbursement> reim = null;
-		if(u.getRole() != UserRole.MANAGER) {
-			throw new Exception();
-		}
-		reim = rdao.getReimbursements();
-		return reim;
+	public Reimbursement updateReimbursement(int idReim,int idUser, String status) {
+		Reimbursement reim = rDao.getReimbursementById(idReim);
+		reim.setResolver(idUser);
+		reim.setStatus(ReimbursementStatus.valueOf(status));
+		return rDao.updateReimbursement(reim);
 	}
-	
 
+	public List<Reimbursement> getUserReimbursement(User user) {	
+		return rDao.getUserReimbursement(user);
+	}
+
+	public List<Reimbursement> getReimbursements() {	
+		return rDao.getReimbursements();
+	}
 }

@@ -16,42 +16,48 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div></div>
-	<table class="table" id="table">
-		<thead>
-			<tr>
-				<th scope="col">Amount</th>
-				<th scope="col">Submitted</th>
-				<th scope="col">Resolved</th>
-				<th scope="col">Description</th>
-				<th scope="col">Receipt</th>
-				<th scope="col">Author</th>
-				<th scope="col">Resolver</th>
-				<th scope="col">Type</th>
-				<th scope="col">Status</th>
-			</tr>
-		</thead>
-	</table>
-	</div>
-	<button id="b1">Submit a new ticket</button>
-		<div style = "visibility: hidden;" id="ticket">
-			<div class="input-group">
-				<span class="input-group-text">Amount</span>
-				<input type="number" class="form-control" value="amount" id="amount" name="amount"> 
-				<select name="type" id="type">
-					<option value="LODGING">Lodging</option>
-					<option value="TRAVEL">Travel</option>
-					<option value="FOOD">Food</option>
-					<option value="OTHER">Other</option>
-				</select>
-			</div>
 
-			<div class="input-group">
-				<span class="input-group-text">Description</span>
-				<input class="form-control" name = "description" type="text" id="desc">
-			</div>
-			<button type="submit" id="b2">Submit</button>
+<div class="jumbotron">
+	<h1 class="display-4">Reimbursements</h1>
+	<p class = "lead">Manager view</p>
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	<button type="button" class="btn btn-secondary" id="logout">Log out</button>
+	</div>
+</div>
+
+	<div>
+		<table class="table" id="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Submitted</th>
+					<th scope="col">Resolved</th>
+					<th scope="col">Description</th>
+					<th scope="col">Receipt</th>
+					<th scope="col">Author</th>
+					<th scope="col">Resolver</th>
+					<th scope="col">Type</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<button id="b1" class="btn btn-outline-secondary">Update a ticket</button>
+	<p><br></p>
+	<div style="visibility: hidden;" id="ticket">
+		<div class="input-group">
+			<span class="input-group-text">ID#</span> <input type="number"
+				class="form-control" value="amount" id="id" name="id">
+			<select name="status" id="status">
+				<option value="APPROVED">Approve</option>
+				<option value="REJECTED">Reject</option>
+
+			</select>
 		</div>
+		<p><br></p>
+		<button class="btn btn-outline-primary" type="submit" id="b2">Update</button>
+	</div>
 
 	<script src="../js/manager.js"></script>
 </body>

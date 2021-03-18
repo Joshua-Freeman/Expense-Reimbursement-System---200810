@@ -14,12 +14,14 @@ public class MainServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
+		resp.setHeader("Cache-Control", "no-store");
 		RequestHelper.process(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
+		resp.setHeader("Cache-Control", "no-store");
 		RequestHelper.process(req, resp);
 	}
 

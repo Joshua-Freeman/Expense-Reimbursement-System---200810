@@ -81,6 +81,37 @@ public class ReimbursementDao {
 
 		return reims;
 	}
+	
+	public Reimbursement getReimbursementById(int id) {
+		Reimbursement reim = new Reimbursement();
+		String sql = "select * "
+				+ "from ERS_REIMBURSEMENT "
+				+ "inner join ERS_REIMBURSEMENT_STATUS using(REIMB_STATUS_ID) "
+				+ "inner join ERS_REIMBURSEMENT_TYPE using(REIMB_TYPE_ID) "
+				+ "where REIMB_ID = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, id);
+			ps.execute();
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				
+				reim =(new Reimbursement(
+						rs.getInt(3),rs.getDouble(4),
+						rs.getTimestamp(5),rs.getTimestamp(6),
+						rs.getString(7),rs.getBinaryStream(8),
+						rs.getInt(9),rs.getInt(10),
+						ReimbursementType.valueOf(rs.getString(12)),
+						ReimbursementStatus.valueOf(rs.getString(11))));
+			}
+			return reim;
+		} catch (SQLException e) {
+
+		}
+
+		return reim;
+	}
 
 	public List<Reimbursement> getReimbursements() {
 		List<Reimbursement> reims = new ArrayList<Reimbursement>();

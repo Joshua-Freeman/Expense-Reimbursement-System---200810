@@ -29,13 +29,16 @@ function register() {
 		},
 		body: JSON.stringify(data),
 	})
-		.then(response => response.json())
-		.then(data => {
-			console.log('Success:', data);
-			location.href = "index.html";
+		.then(response => {
+			
+			//return response.json();
+			})
+/*		.then(data => {
+			//console.log('Success:', data);
+			//location.href = "index.html";
 		})
 		.catch((error) => {
-			console.error('Error:', error);
-		});
+			//console.error('Error:', error);
+		});*/
 
 }

@@ -16,10 +16,11 @@ import com.revature.models.Reimbursement.ReimbursementStatus;
 import com.revature.models.Reimbursement.ReimbursementType;
 import com.revature.models.User;
 import com.revature.models.User.UserRole;
+import com.revature.services.ReimbursementService;
 
 public class ReimbursementController {
 
-	ReimbursementDao rdao = new ReimbursementDao();
+	ReimbursementService rServ = new ReimbursementService();
 	
 	public void submit(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = req.getSession();
@@ -31,14 +32,17 @@ public class ReimbursementController {
 		reim.setDescription(req.getParameter("description"));
 		reim.setAuthor(user.getId());
 		reim.setStatus(ReimbursementStatus.PENDING);
-		rdao.addReimbursement(reim);
+		rServ.addReimbursement(reim);
 		res.getWriter().write(new ObjectMapper().writeValueAsString(reim));
 	}
 
 	public void update(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Reimbursement reim = mapper.readValue(req.getInputStream(), Reimbursement.class);
-		rdao.updateReimbursement(reim);
+//		ObjectMapper mapper = new ObjectMapper();
+//		Reimbursement reim = mapper.readValue(req.getInputStream(), Reimbursement.class);
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("user");
+		Reimbursement reim = rServ.updateReimbursement(Integer.valueOf(req.getParameter("id")),
+				user.getId(), req.getParameter("status"));
 		res.getWriter().write(new ObjectMapper().writeValueAsString(reim));
 		
 	}
@@ -46,7 +50,7 @@ public class ReimbursementController {
 	public void users(HttpServletRequest req, HttpServletResponse res) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = req.getSession();
 		User user = (User)session.getAttribute("user");
-		List<Reimbursement> reims = rdao.getUserReimbursement(user);
+		List<Reimbursement> reims = rServ.getUserReimbursement(user);
 		res.getWriter().write(new ObjectMapper().writeValueAsString(reims));	
 	}
 
@@ -57,10 +61,9 @@ public class ReimbursementController {
 			res.sendError(HttpServletResponse.SC_FORBIDDEN, "You need to be a manager.");
 		}
 		else {
-			List<Reimbursement> reims = rdao.getReimbursements();
+			List<Reimbursement> reims = rServ.getReimbursements();
 			res.getWriter().write(new ObjectMapper().writeValueAsString(reims));
 		}
-		
 	}
 
 }
