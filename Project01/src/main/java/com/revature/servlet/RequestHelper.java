@@ -24,6 +24,10 @@ public class RequestHelper {
 		case "/Project01/revature/user/register":
 			ucon.register(req,res);
 			break;
+		
+		case "/Project01/revature/user/logout":
+			ucon.logout(req,res);
+			break;
 			
 		case "/Project01/revature/reimbursement/submit":
 			rcon.submit(req,res);

@@ -17,7 +17,12 @@ function login(){
 			console.log('panic');
 		}
 	).then(function(myJSON){
-		location.href = "employee.html";
-		console.log(myJSON);
+		//location.href = "employee.html";
+		if(myJSON['role'] == 'MANAGER'){
+			location.href = "manager.html";
+		}
+		else{
+			location.href = "employee.html";
+		}
 	});
 }

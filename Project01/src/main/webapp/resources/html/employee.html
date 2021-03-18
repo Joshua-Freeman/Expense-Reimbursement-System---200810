@@ -16,42 +16,43 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Submitted</th>
-      <th scope="col">Resolved</th>
-      <th scope="col">Description</th>
-      <th scope="col">Receipt</th>
-      <th scope="col">Author</th>
-      <th scope="col">Resolver</th>
-      <th scope="col">Type</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+	<div>
+		<table class="table" id="table">
+			<thead>
+				<tr>
+					<th scope="col">Amount</th>
+					<th scope="col">Submitted</th>
+					<th scope="col">Resolved</th>
+					<th scope="col">Description</th>
+					<th scope="col">Receipt</th>
+					<th scope="col">Author</th>
+					<th scope="col">Resolver</th>
+					<th scope="col">Type</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<button id="b1">Submit a new ticket</button>
+	<div style="visibility: hidden;" id="ticket">
+		<div class="input-group">
+			<span class="input-group-text">Amount</span> <input type="number"
+				class="form-control" value="amount" id="amount" name="amount">
+			<select name="type" id="type">
+				<option value="LODGING">Lodging</option>
+				<option value="TRAVEL">Travel</option>
+				<option value="FOOD">Food</option>
+				<option value="OTHER">Other</option>
+			</select>
+		</div>
 
-<script src="../js/employee.js"></script>
+		<div class="input-group">
+			<span class="input-group-text">Description</span> <input
+				class="form-control" name="description" type="text" id="desc">
+		</div>
+		<button type="submit" id="b2">Submit</button>
+	</div>
+
+	<script src="../js/employee.js"></script>
 </body>
 </html>
