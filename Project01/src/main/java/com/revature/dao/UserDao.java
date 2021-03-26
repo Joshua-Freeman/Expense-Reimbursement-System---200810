@@ -88,7 +88,31 @@ public class UserDao {
 		}
 		return null;
 	}
-
+	
+	public User getUser(String username) {
+		try {
+			String sql = "select * from ERS_USERS inner join ERS_USER_ROLES on "+
+					"(ERS_USERS.USER_ROLE_ID = ERS_USER_ROLES.ERS_USER_ROLE_ID)" +
+					" where ERS_USERNAME = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.execute();
+			ResultSet rs = ps.executeQuery();
+			User user = null;
+			while(rs.next()) {
+				user = (new User(
+						rs.getInt(1),rs.getString(2),
+						rs.getString(3),rs.getString(4),
+						rs.getString(5),rs.getString(6),
+						UserRole.valueOf(rs.getString(9))));
+			}
+			return user;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public User addUser(User user) {
 		try {
@@ -104,7 +128,7 @@ public class UserDao {
 			ps.execute();
 			return user;
 		} catch (SQLException e) {
-
+			
 		}
 		return null;
 	}
